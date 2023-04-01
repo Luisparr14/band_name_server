@@ -8,7 +8,7 @@ const socket = (io) => {
     })
 
     client.on('emit-message', (payload) => {
-      io.emit('new-message', payload)
+      client.broadcast.emit('new-message', payload)
     })
   
     client.on('disconnect', () => {

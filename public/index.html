@@ -32,6 +32,10 @@
       socket.on('disconnect', () => {
         console.log('Desconectado del servidor');
       });
+
+      socket.on('new-message', (payload) => {
+        console.log('New message: ', payload);
+      });
   </script>
 </body>
 
