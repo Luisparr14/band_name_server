@@ -1,6 +1,7 @@
+const { v4: uuidv4 } = require('uuid');
 class Band {
-    constructor(id, name) {
-        this.id = id;
+    constructor(name) {
+        this.id = id || uuidv4();
         this.name = name;
         this.votes = 0;
     }
