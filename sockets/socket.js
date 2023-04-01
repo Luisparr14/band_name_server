@@ -6,6 +6,10 @@ const socket = (io) => {
       console.log(`Payload: ${payload}`)
       io.emit('message', 'Hello from server')
     })
+
+    client.on('emit-message', (payload) => {
+      io.emit('new-message', payload)
+    })
   
     client.on('disconnect', () => {
       console.log('Client disconnected...')
