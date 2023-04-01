@@ -3,25 +3,14 @@ const logger = require('morgan')
 const path = require('path')
 const { version } = require('./package.json')
 const app = express()
+const { socket } = require('./sockets')
 
 // Create nodejs http server
 const server = require('http').createServer(app)
 
 // Create socket.io server
 const io = require('socket.io')(server)
-
-io.on('connection', (client) => {
-  console.log(`Client ${client.id} connected...`)
-
-  client.on('message', (payload) => {
-    console.log(`Payload: ${payload}`)
-    io.emit('message', 'Hello from server')
-  })
-
-  client.on('disconnect', () => {
-    console.log('Client disconnected...')
-  })
-})
+socket(io)
 
 app.set('port', process.env.PORT || 3000)
 
@@ -43,3 +32,9 @@ server.listen(app.get('port'), (err) => {
   if (err) return console.log('something bad happened', err)
   console.log(`Example app listening on port ${app.get('port')}`)
 })
+
+module.exports = {
+  app,
+  server,
+  io
+}
